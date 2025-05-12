@@ -109,7 +109,6 @@ let nemico = sprites.create(img`
 
 nemico.setPosition(400, 100)
 nemico.ay = 980
-nemico.setDataNumber("caramelleMangiate", 0)
 
 game.onUpdateInterval(100, function () {
     if (nemico && nemico.vy == 0) {
@@ -124,8 +123,7 @@ game.onUpdateInterval(100, function () {
 // Collisione: player e nemico
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Enemy, function (player, enemy) {
     if (player.vy > 0 && player.y < enemy.y) {
-        let extra = enemy.data.getNumber("caramelleMangiate")
-        let totalPoints = 10 + (extra * 10)
+        let totalPoints = 10
         info.changeScoreBy(totalPoints)
         enemy.destroy()
         player.vy = -100
@@ -137,22 +135,4 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.Enemy, function (player, enemy) 
 // Caramella colpisce nemico
 sprites.onOverlap(SpriteKind.Projectile, SpriteKind.Enemy, function (proj, enemy) {
     proj.destroy()
-    let count = enemy.data.getNumber("caramelleMangiate") || 0
-    enemy.setDataNumber("caramelleMangiate", count + 1)
-    enemy.setImage(img`
-        . . . . . . . c c c c . . . . . . . 
-        . . . . . c c 5 5 5 5 c c . . . . . 
-        . . . . c 5 5 5 5 5 5 5 5 c . . . . 
-        . . . c 5 5 5 5 5 5 5 5 5 5 c . . . 
-        . . . c 5 5 f 5 5 5 5 f 5 5 c . . . 
-        . . . c 5 5 5 5 5 5 5 5 5 5 c . . . 
-        . . c 5 5 5 5 5 5 5 5 5 5 5 5 c . . 
-        . . c 5 5 5 5 5 5 5 5 5 5 5 5 c . . 
-        . . c 5 5 5 5 5 5 5 5 5 5 5 5 c . . 
-        . . . c 5 5 5 5 5 5 5 5 5 5 c . . . 
-        . . . c 5 5 5 5 5 5 5 5 5 5 c . . . 
-        . . . . c 5 5 5 5 5 5 5 5 c . . . . 
-        . . . . . c c 5 5 5 5 c c . . . . . 
-        . . . . . . . c c c c . . . . . . . 
-    `)
 })
