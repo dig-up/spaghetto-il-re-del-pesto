@@ -3,7 +3,7 @@ let salti = 0
 let canShoot = false
 let shootTimer = 0
 
-scene.setBackgroundColor(4)
+scene.setBackgroundColor(5)
 tiles.setCurrentTilemap(tilemap`livello1`)
 
 // Giocatore
